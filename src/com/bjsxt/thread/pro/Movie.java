@@ -1,65 +1,65 @@
 package com.bjsxt.thread.pro;
 /**
- Ò»¸ö³¡¾°,¹²Í¬µÄ×ÊÔ´
-  Éú²úÕßÏû·ÑÕßÄ£Ê½ ĞÅºÅµÆ·¨
- wait() :µÈ´ı£¬ÊÍ·ÅËø   sleep ²»ÊÍ·ÅËø
- notify()/notifyAll():»½ĞÑ
-  Óë synchronized
+ ä¸€ä¸ªåœºæ™¯,å…±åŒçš„èµ„æº
+  ç”Ÿäº§è€…æ¶ˆè´¹è€…æ¨¡å¼ ä¿¡å·ç¯æ³•
+ wait() :ç­‰å¾…ï¼Œé‡Šæ”¾é”   sleep ä¸é‡Šæ”¾é”
+ notify()/notifyAll():å”¤é†’
+  ä¸ synchronized
  * @author Administrator
  *
  */
 public class Movie {
 	private String pic ;
-	//ĞÅºÅµÆ
-	//flag -->T Éú²úÉú²ú£¬Ïû·ÑÕßµÈ´ı £¬Éú²úÍê³ÉºóÍ¨ÖªÏû·Ñ
-	//flag -->F Ïû·ÑÕßÏû·Ñ Éú²úÕßµÈ´ı, Ïû·ÑÍê³ÉºóÍ¨ÖªÉú²ú
+	//ä¿¡å·ç¯
+	//flag -->T ç”Ÿäº§ç”Ÿäº§ï¼Œæ¶ˆè´¹è€…ç­‰å¾… ï¼Œç”Ÿäº§å®Œæˆåé€šçŸ¥æ¶ˆè´¹
+	//flag -->F æ¶ˆè´¹è€…æ¶ˆè´¹ ç”Ÿäº§è€…ç­‰å¾…, æ¶ˆè´¹å®Œæˆåé€šçŸ¥ç”Ÿäº§
 	private boolean flag =true;
 	/**
-	 * ²¥·Å
+	 * æ’­æ”¾
 	 * @param pic
 	 */
 	public synchronized void play(String pic){
-		if(!flag){ //Éú²úÕßµÈ´ı
+		if(!flag){ //ç”Ÿäº§è€…ç­‰å¾…
 			try {
 				this.wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		//¿ªÊ¼Éú²ú
+		//å¼€å§‹ç”Ÿäº§ å‡è®¾ç”Ÿäº§åŠ›5s
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Éú²úÁË:"+pic);
-		//Éú²úÍê±Ï		
+		System.out.println("ç”Ÿäº§äº†:"+pic);
+		//ç”Ÿäº§å®Œæ¯•		
 		this.pic =pic;
-		//Í¨ÖªÏû·Ñ
+		//é€šçŸ¥æ¶ˆè´¹
 		this.notify();
-		//Éú²úÕßÍ£ÏÂ
+		//ç”Ÿäº§è€…åœä¸‹
 		this.flag =false;
 	}
 	
 	public synchronized void watch(){
-		if(flag){ //Ïû·ÑÕßµÈ´ı
+		if(flag){ //æ¶ˆè´¹è€…ç­‰å¾…
 			try {
 				this.wait();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		//¿ªÊ¼Ïû·Ñ
+		//å¼€å§‹æ¶ˆè´¹
 		try {
 			Thread.sleep(200);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Ïû·ÑÁË"+pic);
-		//Ïû·ÑÍê±Ï
-		//Í¨ÖªÉú²ú
+		System.out.println("æ¶ˆè´¹äº†"+pic);
+		//æ¶ˆè´¹å®Œæ¯•
+		//é€šçŸ¥ç”Ÿäº§
 		this.notifyAll();
-		//Ïû·ÑÍ£Ö¹
+		//æ¶ˆè´¹åœæ­¢
 		this.flag=true;
 	}
 }
