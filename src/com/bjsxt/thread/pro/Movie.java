@@ -26,7 +26,7 @@ public class Movie {
 				e.printStackTrace();
 			}
 		}
-		//开始生产 假设生产力5s
+		//开始生产 假设生产了5s
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
